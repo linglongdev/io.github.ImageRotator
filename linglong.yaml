@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.ImageRotator
+  name: ImageRotator
+  version: 1.0.3.1
+  kind: app
+  description: |
+    Image rotator capable of rotating images using the Nearest Neighbor or bilinear interpolation algorithms
+
+command:
+  - /opt/apps/io.github.ImageRotator/files/bin/ImageRotator
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/ImageRotator.git
+    version: master
+    commit: fbf278036f0867c966aeb77df9369b3a580d9ff7
+
+build: |
+  cd /project/linglong/sources/ImageRotator.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
